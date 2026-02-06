@@ -102,7 +102,7 @@
 
     <!-- Summary Cards - Key Metrics -->
     <div class="max-w-7xl mx-auto px-4 py-4">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
             <!-- Metric 1: AI Roles in Prod -->
             <div class="metric-card bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-gray-900 p-4 transition-colors border-l-4 border-blue-500">
                 <p class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide">AI-ролей в проде</p>
@@ -115,13 +115,25 @@
                 <p class="text-2xl font-bold text-cyan-600 dark:text-cyan-400" id="totalAiFunctions">-</p>
                 <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">автоматизировано / всего</p>
             </div>
-            <!-- Metric 3: Data Sources Coverage -->
+            <!-- Metric 3: AI Agents -->
+            <div class="metric-card bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-gray-900 p-4 transition-colors border-l-4 border-purple-500">
+                <p class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide">AI Agents</p>
+                <p class="text-2xl font-bold text-purple-600 dark:text-purple-400" id="totalAiAgents">5</p>
+                <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">реализовано в workspace</p>
+            </div>
+            <!-- Metric 4: AI Skills -->
+            <div class="metric-card bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-gray-900 p-4 transition-colors border-l-4 border-amber-500">
+                <p class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide">AI Skills</p>
+                <p class="text-2xl font-bold text-amber-600 dark:text-amber-400" id="totalAiSkills">6</p>
+                <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">реализовано в workspace</p>
+            </div>
+            <!-- Metric 5: Data Sources Coverage -->
             <div class="metric-card bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-gray-900 p-4 transition-colors border-l-4 border-indigo-500">
                 <p class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide">Накопление данных</p>
                 <p class="text-2xl font-bold text-indigo-600 dark:text-indigo-400" id="dataSourcesCoverage">-</p>
-                <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">источников в shared-workspace / всего</p>
+                <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">источников в workspace</p>
             </div>
-            <!-- Metric 4: Active Users -->
+            <!-- Metric 6: Active Users -->
             <div class="metric-card bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-gray-900 p-4 transition-colors border-l-4 border-emerald-500">
                 <p class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide">Активные пользователи</p>
                 <p class="text-2xl font-bold text-emerald-600 dark:text-emerald-400" id="activeUsers">50</p>
@@ -226,53 +238,184 @@
         // EMBEDDED DATA - PLACEHOLDER FOR DEMO
         // ============================================
         // ============================================
-        // AI ROLES LIST
+        // AI ROLES LIST (из shared-docs/ai-first/ai-ambassadors/списки-ролей-и-функций.md)
         // ============================================
         const AI_ROLES = [
             // Analytics
-            { id: 'r1', name: 'AI-аналитик', department: 'Analytics', inProdSince: '2026-S01' },
+            { id: 'r1', name: 'AI Engineer', department: 'Analytics', inProdSince: null },
+            { id: 'r2', name: 'Data Engineer', department: 'Analytics', inProdSince: null },
+            { id: 'r3', name: 'Head of Analytics', department: 'Analytics', inProdSince: null },
+            { id: 'r4', name: 'Product Analyst', department: 'Analytics', inProdSince: null },
+            // B2B (mapped to Sales for dashboard purposes)
+            { id: 'r5', name: 'Руководитель В2В / WS', department: 'Sales', inProdSince: null },
+            // Back Office
+            { id: 'r6', name: 'Администратор проектов', department: 'Back Office', inProdSince: null },
+            // HR
+            { id: 'r7', name: 'HR менеджер', department: 'HR', inProdSince: null },
+            // Monetization
+            { id: 'r8', name: 'Руководитель отдела монетизации', department: 'Monetization', inProdSince: null },
+            { id: 'r9', name: 'Content Product Manager (CPM)', department: 'Monetization', inProdSince: null },
+            { id: 'r10', name: 'SEO-автор', department: 'Monetization', inProdSince: null },
+            { id: 'r11', name: 'Product Delivery Manager', department: 'Monetization', inProdSince: null },
+            // Project Office
+            { id: 'r12', name: 'Project Manager (PM)', department: 'Project Office', inProdSince: null },
+            // SEO
+            { id: 'r13', name: 'SEO Project Manager', department: 'SEO', inProdSince: null },
+            { id: 'r14', name: 'PBN Specialist', department: 'SEO', inProdSince: null },
+            { id: 'r15', name: 'Linkbuilder Outreach', department: 'SEO', inProdSince: null },
+            // Sport Fan Engagement
+            { id: 'r16', name: 'Product Delivery Manager', department: 'Sport Fan Engagement', inProdSince: null },
+            { id: 'r17', name: 'Ассистент конкурсов', department: 'Sport Fan Engagement', inProdSince: null },
+            // Technology
+            { id: 'r18', name: 'QA Engineer', department: 'Technology', inProdSince: null },
+            { id: 'r19', name: 'Designer', department: 'Technology', inProdSince: null },
         ];
 
         // ============================================
-        // AI FUNCTIONS LIST
+        // AI FUNCTIONS LIST (из shared-docs/ai-first/ai-ambassadors/списки-ролей-и-функций.md)
         // ============================================
         const AI_FUNCTIONS = [
-            // Analytics
-            { id: 'f1', name: 'AI-дашборд внедрения', department: 'Analytics', automatedSince: '2026-S01' },
-            { id: 'f2', name: 'Автоматический отчёт по метрикам', department: 'Analytics', automatedSince: null },
-            { id: 'f3', name: 'Прогнозирование KPI', department: 'Analytics', automatedSince: null },
-            // Technology
-            { id: 'f4', name: 'AI Code Review', department: 'Technology', automatedSince: null },
-            { id: 'f5', name: 'Автогенерация тестов', department: 'Technology', automatedSince: null },
-            { id: 'f6', name: 'AI-документация кода', department: 'Technology', automatedSince: null },
-            // Marketing
-            { id: 'f7', name: 'Генерация контента для соцсетей', department: 'Marketing', automatedSince: null },
-            { id: 'f8', name: 'AI-копирайтинг', department: 'Marketing', automatedSince: null },
-            { id: 'f9', name: 'Анализ конкурентов', department: 'Marketing', automatedSince: null },
-            // Sales
-            { id: 'f10', name: 'AI-скоринг лидов', department: 'Sales', automatedSince: null },
-            { id: 'f11', name: 'Автоматизация follow-up', department: 'Sales', automatedSince: null },
-            // HR
-            { id: 'f12', name: 'AI-скрининг резюме', department: 'HR', automatedSince: null },
-            { id: 'f13', name: 'Автоматизация онбординга', department: 'HR', automatedSince: null },
-            // Project Office
-            { id: 'f14', name: 'AI-планирование спринтов', department: 'Project Office', automatedSince: null },
-            { id: 'f15', name: 'Автоматические отчёты по проектам', department: 'Project Office', automatedSince: null },
-            // Monetization
-            { id: 'f16', name: 'AI-оптимизация цен', department: 'Monetization', automatedSince: null },
-            { id: 'f17', name: 'Прогнозирование выручки', department: 'Monetization', automatedSince: null },
-            // SEO
-            { id: 'f18', name: 'AI-анализ ключевых слов', department: 'SEO', automatedSince: null },
-            { id: 'f19', name: 'Автогенерация мета-тегов', department: 'SEO', automatedSince: null },
-            // Media
-            { id: 'f20', name: 'AI-редактирование видео', department: 'Media', automatedSince: null },
-            { id: 'f21', name: 'Автогенерация превью', department: 'Media', automatedSince: null },
-            // Sport Fan Engagement
-            { id: 'f24', name: 'Персонализация контента', department: 'Sport Fan Engagement', automatedSince: null },
-            { id: 'f25', name: 'AI-рекомендации матчей', department: 'Sport Fan Engagement', automatedSince: null },
-            // Back Office
-            { id: 'f26', name: 'Автоматизация документооборота', department: 'Back Office', automatedSince: null },
-            { id: 'f27', name: 'AI-обработка счетов', department: 'Back Office', automatedSince: null }
+            // Analytics — AI Engineer
+            { id: 'f1', name: 'Insight Engine — автоматическое обнаружение аномалий, диагностика, алерты', department: 'Analytics', automatedSince: null },
+            { id: 'f2', name: 'Personalization Engine (PE) — профили пользователей, динамические сегменты, персональные офферы', department: 'Analytics', automatedSince: null },
+            { id: 'f3', name: 'Content Scoring — ML-оценка контента, приоритизация обновлений', department: 'Analytics', automatedSince: null },
+            { id: 'f4', name: 'Прогнозные модели — прогноз трафика, конверсий, депозитов, Churn/Return', department: 'Analytics', automatedSince: null },
+            { id: 'f5', name: 'Интеграции БК — кабинеты букмекеров СНГ, Telecom Asia постбеки', department: 'Analytics', automatedSince: null },
+            { id: 'f6', name: 'MLOps — деплой моделей, мониторинг, переобучение', department: 'Analytics', automatedSince: null },
+            // Analytics — Data Engineer
+            { id: 'f7', name: 'Сбор данных (Data Ingestion) — ETL-пайплайны, интеграция источников', department: 'Analytics', automatedSince: null },
+            { id: 'f8', name: 'Оркестрация (Orchestration) — Airflow DAGs, расписания, зависимости, мониторинг', department: 'Analytics', automatedSince: null },
+            { id: 'f9', name: 'Трансформация данных (dbt) — Staging → Intermediate → Marts', department: 'Analytics', automatedSince: null },
+            { id: 'f10', name: 'Качество данных (Data Quality) — тесты dbt, валидация схем, alerting', department: 'Analytics', automatedSince: null },
+            { id: 'f11', name: 'Инфраструктура (Infrastructure) — AWS S3, Athena, Glue, Docker, серверы', department: 'Analytics', automatedSince: null },
+            { id: 'f12', name: 'Интеграция новых источников — WinScore, Telecom Asia, кабинеты БК', department: 'Analytics', automatedSince: null },
+            { id: 'f13', name: 'AI Copilot Backend — Semantic Layer, Cube.js, API для бота', department: 'Analytics', automatedSince: null },
+            { id: 'f14', name: 'Документирование — Knowledge Base, dbt docs, схемы данных', department: 'Analytics', automatedSince: null },
+            // Analytics — Head of Analytics
+            { id: 'f15', name: 'Стратегическое планирование — Roadmap, OKR, приоритизация инициатив', department: 'Analytics', automatedSince: null },
+            { id: 'f16', name: 'Stakeholder Management — работа с руководством и командами-клиентами', department: 'Analytics', automatedSince: null },
+            { id: 'f17', name: 'Архитектура данных — дизайн платформы, технологический стек', department: 'Analytics', automatedSince: null },
+            { id: 'f18', name: 'Управление командой — найм, развитие, распределение задач', department: 'Analytics', automatedSince: null },
+            { id: 'f19', name: 'Управление продуктами данных — PE, Content Scoring, Insight Engine, Copilot', department: 'Analytics', automatedSince: null },
+            { id: 'f20', name: 'Контроль качества — Data Reliability, Trust Index, SLA', department: 'Analytics', automatedSince: null },
+            { id: 'f21', name: 'Бюджетирование — ФОТ, инфраструктура, инструменты', department: 'Analytics', automatedSince: null },
+            { id: 'f22', name: 'Операционное управление — спринты, приоритизация ad-hoc запросов', department: 'Analytics', automatedSince: null },
+            // Analytics — Product Analyst
+            { id: 'f23', name: 'Semantic Layer — единый словарь метрик, справочник терминов', department: 'Analytics', automatedSince: null },
+            { id: 'f24', name: 'Отчётность и визуализация — дашборды QuickSight для всех команд', department: 'Analytics', automatedSince: null },
+            { id: 'f25', name: 'Ad-hoc анализ — исследования по запросам бизнеса', department: 'Analytics', automatedSince: null },
+            { id: 'f26', name: 'Генерация гипотез — поиск точек роста, инсайты из данных', department: 'Analytics', automatedSince: null },
+            { id: 'f27', name: 'A/B тестирование — дизайн экспериментов, анализ результатов', department: 'Analytics', automatedSince: null },
+            { id: 'f28', name: 'Сквозная аналитика — User Journey, атрибуция, когортный анализ', department: 'Analytics', automatedSince: null },
+            { id: 'f29', name: 'Обучение пользователей — Bootcamps, скринкасты, консультации', department: 'Analytics', automatedSince: null },
+            { id: 'f30', name: 'Работа с командами-клиентами — Tier 1 и Tier 2', department: 'Analytics', automatedSince: null },
+            // B2B — Руководитель В2В / WS (mapped to Sales)
+            { id: 'f31', name: 'Формирование и развитие стратегии В2В', department: 'Sales', automatedSince: null },
+            { id: 'f32', name: 'Координация потоков между отделами', department: 'Sales', automatedSince: null },
+            { id: 'f33', name: 'Управление выполнением KPI отдела', department: 'Sales', automatedSince: null },
+            { id: 'f34', name: 'Приоритизация задач и принятие ключевых решений', department: 'Sales', automatedSince: null },
+            { id: 'f35', name: 'Развитие продукта в контексте В2В', department: 'Sales', automatedSince: null },
+            { id: 'f36', name: 'Отчётность и коммуникация с руководством', department: 'Sales', automatedSince: null },
+            { id: 'f37', name: 'Управление командой и делегирование', department: 'Sales', automatedSince: null },
+            // Back Office — Администратор проектов
+            { id: 'f38', name: 'Административно-хозяйственное обеспечение — документооборот, поставщики, офис', department: 'Back Office', automatedSince: null },
+            { id: 'f39', name: 'Финансовое обеспечение — анализ доходов/расходов, бюджеты', department: 'Back Office', automatedSince: null },
+            { id: 'f40', name: 'Работа с CRM (Битрикс) — счета, договоры, учётные данные', department: 'Back Office', automatedSince: null },
+            { id: 'f41', name: 'Внутрикорпоративная коммуникация — информационные потоки, координация', department: 'Back Office', automatedSince: null },
+            // Monetization — Руководитель отдела монетизации
+            { id: 'f42', name: 'Формирование и развитие стратегии монетизации', department: 'Monetization', automatedSince: null },
+            { id: 'f43', name: 'Координация потоков между отделами (SEO, Sales, редакция, разработка)', department: 'Monetization', automatedSince: null },
+            { id: 'f44', name: 'Управление выполнением KPI отдела монетизации', department: 'Monetization', automatedSince: null },
+            { id: 'f45', name: 'Приоритизация задач и принятие ключевых решений монетизации', department: 'Monetization', automatedSince: null },
+            { id: 'f46', name: 'Развитие продукта в контексте монетизации', department: 'Monetization', automatedSince: null },
+            { id: 'f47', name: 'Отчётность и коммуникация с руководством монетизации', department: 'Monetization', automatedSince: null },
+            { id: 'f48', name: 'Управление командой и делегирование монетизации', department: 'Monetization', automatedSince: null },
+            // Monetization — Content Product Manager (CPM)
+            { id: 'f49', name: 'Управление актуальностью контента', department: 'Monetization', automatedSince: null },
+            { id: 'f50', name: 'Добавление и обновление карточек бонусов и турниров', department: 'Monetization', automatedSince: null },
+            { id: 'f51', name: 'SEO-качество и приёмка материалов', department: 'Monetization', automatedSince: null },
+            { id: 'f52', name: 'Работа с авторами', department: 'Monetization', automatedSince: null },
+            { id: 'f53', name: 'Анализ эффективности и экспериментов', department: 'Monetization', automatedSince: null },
+            { id: 'f54', name: 'Поиск идей и рождение экспериментов', department: 'Monetization', automatedSince: null },
+            { id: 'f55', name: 'Отслеживание изменений у партнёров и проверка промоссылок', department: 'Monetization', automatedSince: null },
+            { id: 'f56', name: 'Взаимодействие и трекинг задач CPM', department: 'Monetization', automatedSince: null },
+            // Monetization — SEO-автор
+            { id: 'f57', name: 'Написание текстов по заданиям SEO и CPM', department: 'Monetization', automatedSince: null },
+            { id: 'f58', name: 'Загрузка текстов через админку', department: 'Monetization', automatedSince: null },
+            { id: 'f59', name: 'Модерация отзывов', department: 'Monetization', automatedSince: null },
+            { id: 'f60', name: 'Взаимодействие с SEO и CPM', department: 'Monetization', automatedSince: null },
+            // Monetization — Product Delivery Manager
+            { id: 'f61', name: 'Приём и приоритизация задач монетизации', department: 'Monetization', automatedSince: null },
+            { id: 'f62', name: 'Формирование и постановка задач в работу монетизации', department: 'Monetization', automatedSince: null },
+            { id: 'f63', name: 'Контроль реализации задач монетизации', department: 'Monetization', automatedSince: null },
+            { id: 'f64', name: 'Координация коммуникации между монетизацией и разработкой', department: 'Monetization', automatedSince: null },
+            { id: 'f65', name: 'Отчётность о статусе задач монетизации', department: 'Monetization', automatedSince: null },
+            { id: 'f66', name: 'Управление ожиданиями и эскалации монетизации', department: 'Monetization', automatedSince: null },
+            // Project Office — Project Manager (PM)
+            { id: 'f67', name: 'Интеграционное управление — планирование, WBS, контроль изменений', department: 'Project Office', automatedSince: null },
+            { id: 'f68', name: 'Управление содержанием — требования, scope, приёмка', department: 'Project Office', automatedSince: null },
+            { id: 'f69', name: 'Управление сроками — планирование, критический путь', department: 'Project Office', automatedSince: null },
+            { id: 'f70', name: 'Управление стоимостью — бюджетирование, контроль затрат', department: 'Project Office', automatedSince: null },
+            { id: 'f71', name: 'Управление качеством — QA, дефекты', department: 'Project Office', automatedSince: null },
+            { id: 'f72', name: 'Управление ресурсами — планирование загрузки', department: 'Project Office', automatedSince: null },
+            { id: 'f73', name: 'Управление коммуникациями — отчётность, митинги', department: 'Project Office', automatedSince: null },
+            { id: 'f74', name: 'Управление рисками — идентификация, анализ', department: 'Project Office', automatedSince: null },
+            { id: 'f75', name: 'Управление закупками — подрядчики, SLA', department: 'Project Office', automatedSince: null },
+            { id: 'f76', name: 'Управление стейкхолдерами — ожидания, конфликты', department: 'Project Office', automatedSince: null },
+            // SEO — SEO Project Manager
+            { id: 'f77', name: 'Управление запуском и контролем инициатив', department: 'SEO', automatedSince: null },
+            { id: 'f78', name: 'Координация взаимодействия с отделом разработки', department: 'SEO', automatedSince: null },
+            { id: 'f79', name: 'Организация процессов внутри SEO отдела', department: 'SEO', automatedSince: null },
+            { id: 'f80', name: 'Координация межотдельных коммуникаций', department: 'SEO', automatedSince: null },
+            { id: 'f81', name: 'Управление приоритизацией задач SEO', department: 'SEO', automatedSince: null },
+            { id: 'f82', name: 'Управление командой (линкбилдеры, PBN)', department: 'SEO', automatedSince: null },
+            { id: 'f83', name: 'Управление документооборотом и регламентами SEO', department: 'SEO', automatedSince: null },
+            { id: 'f84', name: 'Организация отчётности SEO', department: 'SEO', automatedSince: null },
+            { id: 'f85', name: 'Управление финансовыми процессами (Битрикс)', department: 'SEO', automatedSince: null },
+            { id: 'f86', name: 'Адаптация новых сотрудников SEO', department: 'SEO', automatedSince: null },
+            { id: 'f87', name: 'Управление контекстной базой знаний', department: 'SEO', automatedSince: null },
+            { id: 'f88', name: 'Разработка внутренних SaaS решений', department: 'SEO', automatedSince: null },
+            // SEO — PBN Specialist
+            { id: 'f89', name: 'Поиск, выкуп и подъем доменов — анализ через Ahrefs/Majestic, выкуп', department: 'SEO', automatedSince: null },
+            { id: 'f90', name: 'Управление доменами — продление, скрытие паттернов', department: 'SEO', automatedSince: null },
+            { id: 'f91', name: 'Построение инфраструктуры сети — хостинги, регистраторы, Cloudflare', department: 'SEO', automatedSince: null },
+            { id: 'f92', name: 'Техническая инфраструктура — восстановление из архива, настройка', department: 'SEO', automatedSince: null },
+            { id: 'f93', name: 'Создание и управление контентом — генерация, рерайт с интеграцией анкора', department: 'SEO', automatedSince: null },
+            { id: 'f94', name: 'Стратегия размещения ссылок — индексация, dofollow', department: 'SEO', automatedSince: null },
+            { id: 'f95', name: 'Безопасность и скрытие следов — диверсификация', department: 'SEO', automatedSince: null },
+            { id: 'f96', name: 'Автоматизация и управление инструментами PBN', department: 'SEO', automatedSince: null },
+            { id: 'f97', name: 'Мониторинг и отчётность PBN', department: 'SEO', automatedSince: null },
+            // SEO — Linkbuilder Outreach
+            { id: 'f98', name: 'Управление проспектингом', department: 'SEO', automatedSince: null },
+            { id: 'f99', name: 'Управление аутрич-коммуникацией', department: 'SEO', automatedSince: null },
+            { id: 'f100', name: 'Качество и персонализация писем', department: 'SEO', automatedSince: null },
+            { id: 'f101', name: 'Учёт и отчётность по кампаниям', department: 'SEO', automatedSince: null },
+            { id: 'f102', name: 'Работа с контентом и linkable assets', department: 'SEO', automatedSince: null },
+            { id: 'f103', name: 'Управление воронкой и статусами', department: 'SEO', automatedSince: null },
+            { id: 'f104', name: 'Управление отношениями и переговорами', department: 'SEO', automatedSince: null },
+            { id: 'f105', name: 'Занесение заявок в оплату (Bitrix)', department: 'SEO', automatedSince: null },
+            { id: 'f106', name: 'Работа с биржами ссылок', department: 'SEO', automatedSince: null },
+            { id: 'f107', name: 'Проверка размещённых ссылок', department: 'SEO', automatedSince: null },
+            { id: 'f108', name: 'Контроль деиндексации', department: 'SEO', automatedSince: null },
+            { id: 'f109', name: 'Планирование и приоритизация linkbuilding', department: 'SEO', automatedSince: null },
+            // Sport Fan Engagement — Product Delivery Manager
+            { id: 'f110', name: 'Управление ресурсами команды и планированием спринтов', department: 'Sport Fan Engagement', automatedSince: null },
+            { id: 'f111', name: 'Управление требованиями и запросами', department: 'Sport Fan Engagement', automatedSince: null },
+            { id: 'f112', name: 'Управление бэклогом продукта', department: 'Sport Fan Engagement', automatedSince: null },
+            { id: 'f113', name: 'Управление релизами и доставкой продукта', department: 'Sport Fan Engagement', automatedSince: null },
+            { id: 'f114', name: 'Анализ рынка и формирование новых задач', department: 'Sport Fan Engagement', automatedSince: null },
+            // Technology — QA Engineer
+            { id: 'f115', name: 'Тестирование продукта — функциональное, регрессионное, API, UI/UX, нагрузочное', department: 'Technology', automatedSince: null },
+            { id: 'f116', name: 'Управление процессом тестирования — планирование, документация, отчётность', department: 'Technology', automatedSince: null },
+            { id: 'f117', name: 'Автоматизация тестирования — разработка и поддержка автотестов', department: 'Technology', automatedSince: null },
+            { id: 'f118', name: 'Управление дефектами — выявление, документирование, отслеживание', department: 'Technology', automatedSince: null },
+            { id: 'f119', name: 'Взаимодействие с командой — планирование, уточнение требований', department: 'Technology', automatedSince: null },
+            // Technology — Designer
+            { id: 'f120', name: 'Discovery & Requirements — анализ и требования, CJM, User Stories', department: 'Technology', automatedSince: null },
+            { id: 'f121', name: 'Design System Ops — поддержка дизайн-системы, токенизация', department: 'Technology', automatedSince: null },
+            { id: 'f122', name: 'UI Craft & Prototyping — визуальный дизайн и сборка', department: 'Technology', automatedSince: null },
+            { id: 'f123', name: 'Generative Marketing — создание графики и промо', department: 'Technology', automatedSince: null },
+            { id: 'f124', name: 'Handoff & QC — передача в dev и контроль качества', department: 'Technology', automatedSince: null },
         ];
 
         // ============================================
